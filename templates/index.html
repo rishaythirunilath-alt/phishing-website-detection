@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Phishing Link Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="main-container">
+
+    <div class="header">
+        <div class="icon">🛡</div>
+        <h1>Check Links for Phishing</h1>
+        <p>Enter a URL below to analyze it for potential phishing indicators and security risks.</p>
+    </div>
+
+    <div class="card">
+        <form method="POST">
+            <label>URL to Check</label>
+            <div class="input-group">
+                <input type="text" name="url" placeholder="https://example.com" required>
+                <button type="submit">Check Link</button>
+            </div>
+        </form>
+    </div>
+
+    {% if result %}
+    <div class="card result-card">
+        <div class="result-header">
+            <h2>Analysis Results</h2>
+            <span class="badge {{ status }}">{{ result }}</span>
+        </div>
+
+        <p class="checked-url">{{ url }}</p>
+
+        <div class="result-box {{ status }}">
+            <h3>{{ result }}</h3>
+            <p>Risk Score: {{ risk_score }}/100</p>
+        </div>
+
+        <div class="details">
+            <h4>Analysis Details</h4>
+            <ul>
+                {% for item in details %}
+                <li>{{ item }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>
